@@ -1,0 +1,28 @@
+.DS_Store
+/.build
+/Packages
+Package.resolved
+xcuserdata/
+DerivedData/
+.swiftpm/configuration/registries.json
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+.netrc
+
+# Secrets / keys
+*.pem
+*.p8
+*.p12
+*.key
+client_secret.txt
+
+# Environment files
+.env
+.env.*
+
+# Local working notes
+CLAUDE.md
+
+# Python virtualenv (scripts tooling)
+scripts/.venv/
+.claude/
+.context/

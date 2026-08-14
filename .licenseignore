@@ -1,0 +1,17 @@
+.gitignore
+.licenseignore
+.swiftformatignore
+.spi.yml
+.swift-format
+.editorconfig
+.github/
+**.md
+**.txt
+**Package.swift
+**Package.resolved
+Sources/AppleAdsClient/Generated/
+scripts/
+spec.version
+patch.version
+Tools/
+Snippets/

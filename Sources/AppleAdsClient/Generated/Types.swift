@@ -554,6 +554,11 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `POST /keywords/bulk-create`.
     /// - Remark: Generated from `#/paths//keywords/bulk-create/post`.
     func postKeywordsBulkCreate(_ input: Operations.PostKeywordsBulkCreate.Input) async throws -> Operations.PostKeywordsBulkCreate.Output
+    /// BulkDelete for keywords
+    ///
+    /// - Remark: HTTP `POST /keywords/bulk-delete`.
+    /// - Remark: Generated from `#/paths//keywords/bulk-delete/post`.
+    func postKeywordsBulkDelete(_ input: Operations.PostKeywordsBulkDelete.Input) async throws -> Operations.PostKeywordsBulkDelete.Output
     /// BulkUpdate for keywords
     ///
     /// - Remark: HTTP `POST /keywords/bulk-update`.
@@ -589,6 +594,11 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `POST /negative-keywords/bulk-create`.
     /// - Remark: Generated from `#/paths//negative-keywords/bulk-create/post`.
     func postNegativeKeywordsBulkCreate(_ input: Operations.PostNegativeKeywordsBulkCreate.Input) async throws -> Operations.PostNegativeKeywordsBulkCreate.Output
+    /// BulkDelete for negative-keywords
+    ///
+    /// - Remark: HTTP `POST /negative-keywords/bulk-delete`.
+    /// - Remark: Generated from `#/paths//negative-keywords/bulk-delete/post`.
+    func postNegativeKeywordsBulkDelete(_ input: Operations.PostNegativeKeywordsBulkDelete.Input) async throws -> Operations.PostNegativeKeywordsBulkDelete.Output
     /// BulkUpdate for negative-keywords
     ///
     /// - Remark: HTTP `POST /negative-keywords/bulk-update`.
@@ -647,7 +657,7 @@ public protocol APIProtocol: Sendable {
     /// Get app campaign reports
     ///
     /// Retrieve reporting data for campaigns.
-    /// **groupBy (APPS):** deviceClass, ageRange, gender, countryCode, adminArea, locality, storefront, countryOrRegion
+    /// **groupBy (APPS):** deviceClass, ageRange, gender, countryCode, adminArea, locality, countryOrRegion
     /// **HOURLY granularity** requires the date range to start within the last 7 days. **WEEKLY granularity** requires the end date to be at least 14 days in the past. **MONTHLY granularity** requires the end date to be at least 90 days in the past.
     ///
     ///
@@ -668,7 +678,7 @@ public protocol APIProtocol: Sendable {
     /// Get app ad group reports
     ///
     /// Retrieve reporting data for ad groups.
-    /// **groupBy (APPS):** deviceClass, ageRange, gender, countryCode, adminArea, locality, storefront, countryOrRegion
+    /// **groupBy (APPS):** deviceClass, ageRange, gender, countryCode, adminArea, locality, countryOrRegion
     /// **HOURLY granularity** requires the date range to start within the last 7 days. **WEEKLY granularity** requires the end date to be at least 14 days in the past. **MONTHLY granularity** requires the end date to be at least 90 days in the past.
     ///
     ///
@@ -1919,6 +1929,19 @@ extension APIProtocol {
             body: body
         ))
     }
+    /// BulkDelete for keywords
+    ///
+    /// - Remark: HTTP `POST /keywords/bulk-delete`.
+    /// - Remark: Generated from `#/paths//keywords/bulk-delete/post`.
+    public func postKeywordsBulkDelete(
+        headers: Operations.PostKeywordsBulkDelete.Input.Headers,
+        body: Operations.PostKeywordsBulkDelete.Input.Body? = nil
+    ) async throws -> Operations.PostKeywordsBulkDelete.Output {
+        try await postKeywordsBulkDelete(Operations.PostKeywordsBulkDelete.Input(
+            headers: headers,
+            body: body
+        ))
+    }
     /// BulkUpdate for keywords
     ///
     /// - Remark: HTTP `POST /keywords/bulk-update`.
@@ -2008,6 +2031,19 @@ extension APIProtocol {
         body: Operations.PostNegativeKeywordsBulkCreate.Input.Body? = nil
     ) async throws -> Operations.PostNegativeKeywordsBulkCreate.Output {
         try await postNegativeKeywordsBulkCreate(Operations.PostNegativeKeywordsBulkCreate.Input(
+            headers: headers,
+            body: body
+        ))
+    }
+    /// BulkDelete for negative-keywords
+    ///
+    /// - Remark: HTTP `POST /negative-keywords/bulk-delete`.
+    /// - Remark: Generated from `#/paths//negative-keywords/bulk-delete/post`.
+    public func postNegativeKeywordsBulkDelete(
+        headers: Operations.PostNegativeKeywordsBulkDelete.Input.Headers,
+        body: Operations.PostNegativeKeywordsBulkDelete.Input.Body? = nil
+    ) async throws -> Operations.PostNegativeKeywordsBulkDelete.Output {
+        try await postNegativeKeywordsBulkDelete(Operations.PostNegativeKeywordsBulkDelete.Input(
             headers: headers,
             body: body
         ))
@@ -2162,7 +2198,7 @@ extension APIProtocol {
     /// Get app campaign reports
     ///
     /// Retrieve reporting data for campaigns.
-    /// **groupBy (APPS):** deviceClass, ageRange, gender, countryCode, adminArea, locality, storefront, countryOrRegion
+    /// **groupBy (APPS):** deviceClass, ageRange, gender, countryCode, adminArea, locality, countryOrRegion
     /// **HOURLY granularity** requires the date range to start within the last 7 days. **WEEKLY granularity** requires the end date to be at least 14 days in the past. **MONTHLY granularity** requires the end date to be at least 90 days in the past.
     ///
     ///
@@ -2199,7 +2235,7 @@ extension APIProtocol {
     /// Get app ad group reports
     ///
     /// Retrieve reporting data for ad groups.
-    /// **groupBy (APPS):** deviceClass, ageRange, gender, countryCode, adminArea, locality, storefront, countryOrRegion
+    /// **groupBy (APPS):** deviceClass, ageRange, gender, countryCode, adminArea, locality, countryOrRegion
     /// **HOURLY granularity** requires the date range to start within the last 7 days. **WEEKLY granularity** requires the end date to be at least 14 days in the past. **MONTHLY granularity** requires the end date to be at least 90 days in the past.
     ///
     ///
@@ -3343,6 +3379,24 @@ public enum Components {
                 try self.value2.encode(to: encoder)
             }
         }
+        /// - Remark: Generated from `#/components/schemas/Info`.
+        public struct Info: Codable, Hashable, Sendable {
+            /// A container of undocumented properties.
+            public var additionalProperties: OpenAPIRuntime.OpenAPIObjectContainer
+            /// Creates a new `Info`.
+            ///
+            /// - Parameters:
+            ///   - additionalProperties: A container of undocumented properties.
+            public init(additionalProperties: OpenAPIRuntime.OpenAPIObjectContainer = .init()) {
+                self.additionalProperties = additionalProperties
+            }
+            public init(from decoder: any Swift.Decoder) throws {
+                additionalProperties = try decoder.decodeAdditionalProperties(knownKeys: [])
+            }
+            public func encode(to encoder: any Swift.Encoder) throws {
+                try encoder.encodeAdditionalProperties(additionalProperties)
+            }
+        }
         /// Error response detail
         ///
         /// - Remark: Generated from `#/components/schemas/ErrorDetail`.
@@ -3351,21 +3405,27 @@ public enum Components {
             public var code: Swift.String
             /// - Remark: Generated from `#/components/schemas/ErrorDetail/message`.
             public var message: Swift.String?
+            /// - Remark: Generated from `#/components/schemas/ErrorDetail/info`.
+            public var info: Components.Schemas.Info?
             /// Creates a new `ErrorDetail`.
             ///
             /// - Parameters:
             ///   - code:
             ///   - message:
+            ///   - info:
             public init(
                 code: Swift.String,
-                message: Swift.String? = nil
+                message: Swift.String? = nil,
+                info: Components.Schemas.Info? = nil
             ) {
                 self.code = code
                 self.message = message
+                self.info = info
             }
             public enum CodingKeys: String, CodingKey {
                 case code
                 case message
+                case info
             }
         }
         /// Error Response
@@ -3925,18 +3985,6 @@ public enum Components {
             public var averageCPT: Components.Schemas.RecommendationMoney?
             /// - Remark: Generated from `#/components/schemas/TargetCpaRecommendation/averageCPA`.
             public var averageCPA: Components.Schemas.RecommendationMoney?
-            /// Expected tap count
-            ///
-            /// - Remark: Generated from `#/components/schemas/TargetCpaRecommendation/expectedTaps`.
-            public var expectedTaps: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/TargetCpaRecommendation/expectedCPA`.
-            public var expectedCPA: Components.Schemas.RecommendationMoney?
-            /// Expected install count
-            ///
-            /// - Remark: Generated from `#/components/schemas/TargetCpaRecommendation/expectedInstalls`.
-            public var expectedInstalls: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/TargetCpaRecommendation/expectedSpend`.
-            public var expectedSpend: Components.Schemas.RecommendationMoney?
             /// Historical impression count
             ///
             /// - Remark: Generated from `#/components/schemas/TargetCpaRecommendation/impression`.
@@ -3974,10 +4022,6 @@ public enum Components {
             ///   - expirationTime:
             ///   - averageCPT:
             ///   - averageCPA:
-            ///   - expectedTaps: Expected tap count
-            ///   - expectedCPA:
-            ///   - expectedInstalls: Expected install count
-            ///   - expectedSpend:
             ///   - impression: Historical impression count
             ///   - installs: Historical install count
             ///   - spend:
@@ -3999,10 +4043,6 @@ public enum Components {
                 expirationTime: Foundation.Date? = nil,
                 averageCPT: Components.Schemas.RecommendationMoney? = nil,
                 averageCPA: Components.Schemas.RecommendationMoney? = nil,
-                expectedTaps: Swift.Int64? = nil,
-                expectedCPA: Components.Schemas.RecommendationMoney? = nil,
-                expectedInstalls: Swift.Int64? = nil,
-                expectedSpend: Components.Schemas.RecommendationMoney? = nil,
                 impression: Swift.Int64? = nil,
                 installs: Swift.Int64? = nil,
                 spend: Components.Schemas.RecommendationMoney? = nil,
@@ -4024,10 +4064,6 @@ public enum Components {
                 self.expirationTime = expirationTime
                 self.averageCPT = averageCPT
                 self.averageCPA = averageCPA
-                self.expectedTaps = expectedTaps
-                self.expectedCPA = expectedCPA
-                self.expectedInstalls = expectedInstalls
-                self.expectedSpend = expectedSpend
                 self.impression = impression
                 self.installs = installs
                 self.spend = spend
@@ -4050,10 +4086,6 @@ public enum Components {
                 case expirationTime
                 case averageCPT
                 case averageCPA
-                case expectedTaps
-                case expectedCPA
-                case expectedInstalls
-                case expectedSpend
                 case impression
                 case installs
                 case spend
@@ -4075,6 +4107,10 @@ public enum Components {
             public var id: Swift.String?
             /// - Remark: Generated from `#/components/schemas/DailyCapRecommendation/recommendationType`.
             public var recommendationType: Components.Schemas.RecommendationCategory?
+            /// The ad account this recommendation belongs to.
+            ///
+            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendation/adAccountId`.
+            public var adAccountId: Swift.Int64?
             /// Campaign identifier
             ///
             /// - Remark: Generated from `#/components/schemas/DailyCapRecommendation/promotedObjectId`.
@@ -4125,14 +4161,10 @@ public enum Components {
             ///
             /// - Remark: Generated from `#/components/schemas/DailyCapRecommendation/taps`.
             public var taps: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendation/expectedImpressions`.
-            public var expectedImpressions: Swift.Int64?
             /// - Remark: Generated from `#/components/schemas/DailyCapRecommendation/expectedInstalls`.
             public var expectedInstalls: Swift.Int64?
             /// - Remark: Generated from `#/components/schemas/DailyCapRecommendation/expectedSpend`.
             public var expectedSpend: Components.Schemas.RecommendationMoney?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendation/expectedTaps`.
-            public var expectedTaps: Swift.Int64?
             /// - Remark: Generated from `#/components/schemas/DailyCapRecommendation/expectedCpa`.
             public var expectedCpa: Components.Schemas.RecommendationMoney?
             /// - Remark: Generated from `#/components/schemas/DailyCapRecommendation/bidStrategy`.
@@ -4142,6 +4174,7 @@ public enum Components {
             /// - Parameters:
             ///   - id: Unique recommendation identifier
             ///   - recommendationType:
+            ///   - adAccountId: The ad account this recommendation belongs to.
             ///   - promotedObjectId: Campaign identifier
             ///   - promotedObjectType:
             ///   - campaignId: Campaign ID
@@ -4160,15 +4193,14 @@ public enum Components {
             ///   - impression: Historical impression count
             ///   - ttr: Tap-through rate
             ///   - taps: Historical tap count
-            ///   - expectedImpressions:
             ///   - expectedInstalls:
             ///   - expectedSpend:
-            ///   - expectedTaps:
             ///   - expectedCpa:
             ///   - bidStrategy:
             public init(
                 id: Swift.String? = nil,
                 recommendationType: Components.Schemas.RecommendationCategory? = nil,
+                adAccountId: Swift.Int64? = nil,
                 promotedObjectId: Swift.String? = nil,
                 promotedObjectType: Components.Schemas.PromotedObjectType? = nil,
                 campaignId: Swift.Int64? = nil,
@@ -4187,15 +4219,14 @@ public enum Components {
                 impression: Swift.Int64? = nil,
                 ttr: Swift.Double? = nil,
                 taps: Swift.Int64? = nil,
-                expectedImpressions: Swift.Int64? = nil,
                 expectedInstalls: Swift.Int64? = nil,
                 expectedSpend: Components.Schemas.RecommendationMoney? = nil,
-                expectedTaps: Swift.Int64? = nil,
                 expectedCpa: Components.Schemas.RecommendationMoney? = nil,
                 bidStrategy: Components.Schemas.RecommendationBidStrategy? = nil
             ) {
                 self.id = id
                 self.recommendationType = recommendationType
+                self.adAccountId = adAccountId
                 self.promotedObjectId = promotedObjectId
                 self.promotedObjectType = promotedObjectType
                 self.campaignId = campaignId
@@ -4214,16 +4245,15 @@ public enum Components {
                 self.impression = impression
                 self.ttr = ttr
                 self.taps = taps
-                self.expectedImpressions = expectedImpressions
                 self.expectedInstalls = expectedInstalls
                 self.expectedSpend = expectedSpend
-                self.expectedTaps = expectedTaps
                 self.expectedCpa = expectedCpa
                 self.bidStrategy = bidStrategy
             }
             public enum CodingKeys: String, CodingKey {
                 case id
                 case recommendationType
+                case adAccountId
                 case promotedObjectId
                 case promotedObjectType
                 case campaignId
@@ -4242,10 +4272,8 @@ public enum Components {
                 case impression
                 case ttr
                 case taps
-                case expectedImpressions
                 case expectedInstalls
                 case expectedSpend
-                case expectedTaps
                 case expectedCpa
                 case bidStrategy
             }
@@ -4400,14 +4428,6 @@ public enum Components {
             public var ttr: Swift.Double?
             /// - Remark: Generated from `#/components/schemas/TargetCpaRecommendationHistory/taps`.
             public var taps: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/TargetCpaRecommendationHistory/expectedInstalls`.
-            public var expectedInstalls: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/TargetCpaRecommendationHistory/expectedSpend`.
-            public var expectedSpend: Components.Schemas.RecommendationMoney?
-            /// - Remark: Generated from `#/components/schemas/TargetCpaRecommendationHistory/expectedTaps`.
-            public var expectedTaps: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/TargetCpaRecommendationHistory/expectedCPA`.
-            public var expectedCPA: Components.Schemas.RecommendationMoney?
             /// Creates a new `TargetCpaRecommendationHistory`.
             ///
             /// - Parameters:
@@ -4433,10 +4453,6 @@ public enum Components {
             ///   - impression:
             ///   - ttr:
             ///   - taps:
-            ///   - expectedInstalls:
-            ///   - expectedSpend:
-            ///   - expectedTaps:
-            ///   - expectedCPA:
             public init(
                 recommendationId: Swift.String? = nil,
                 recommendationType: Components.Schemas.RecommendationCategory? = nil,
@@ -4459,11 +4475,7 @@ public enum Components {
                 averageCPT: Components.Schemas.RecommendationMoney? = nil,
                 impression: Swift.Int64? = nil,
                 ttr: Swift.Double? = nil,
-                taps: Swift.Int64? = nil,
-                expectedInstalls: Swift.Int64? = nil,
-                expectedSpend: Components.Schemas.RecommendationMoney? = nil,
-                expectedTaps: Swift.Int64? = nil,
-                expectedCPA: Components.Schemas.RecommendationMoney? = nil
+                taps: Swift.Int64? = nil
             ) {
                 self.recommendationId = recommendationId
                 self.recommendationType = recommendationType
@@ -4487,10 +4499,6 @@ public enum Components {
                 self.impression = impression
                 self.ttr = ttr
                 self.taps = taps
-                self.expectedInstalls = expectedInstalls
-                self.expectedSpend = expectedSpend
-                self.expectedTaps = expectedTaps
-                self.expectedCPA = expectedCPA
             }
             public enum CodingKeys: String, CodingKey {
                 case recommendationId
@@ -4515,10 +4523,6 @@ public enum Components {
                 case impression
                 case ttr
                 case taps
-                case expectedInstalls
-                case expectedSpend
-                case expectedTaps
-                case expectedCPA
             }
         }
         /// Historical record of an applied or dismissed daily budget recommendation
@@ -4569,34 +4573,10 @@ public enum Components {
             public var ttr: Swift.Double?
             /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/taps`.
             public var taps: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedImpressionsLow`.
-            public var expectedImpressionsLow: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedImpressionsHigh`.
-            public var expectedImpressionsHigh: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedImpressions`.
-            public var expectedImpressions: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedInstallsLow`.
-            public var expectedInstallsLow: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedInstallsHigh`.
-            public var expectedInstallsHigh: Swift.Int64?
             /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedInstalls`.
             public var expectedInstalls: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedSpendLow`.
-            public var expectedSpendLow: Components.Schemas.RecommendationMoney?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedSpendHigh`.
-            public var expectedSpendHigh: Components.Schemas.RecommendationMoney?
             /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedSpend`.
             public var expectedSpend: Components.Schemas.RecommendationMoney?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedTapsLow`.
-            public var expectedTapsLow: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedTapsHigh`.
-            public var expectedTapsHigh: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedTaps`.
-            public var expectedTaps: Swift.Int64?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedCpaLow`.
-            public var expectedCpaLow: Components.Schemas.RecommendationMoney?
-            /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedCpaHigh`.
-            public var expectedCpaHigh: Components.Schemas.RecommendationMoney?
             /// - Remark: Generated from `#/components/schemas/DailyCapRecommendationHistory/expectedCpa`.
             public var expectedCpa: Components.Schemas.RecommendationMoney?
             /// Creates a new `DailyCapRecommendationHistory`.
@@ -4624,20 +4604,8 @@ public enum Components {
             ///   - impression:
             ///   - ttr:
             ///   - taps:
-            ///   - expectedImpressionsLow:
-            ///   - expectedImpressionsHigh:
-            ///   - expectedImpressions:
-            ///   - expectedInstallsLow:
-            ///   - expectedInstallsHigh:
             ///   - expectedInstalls:
-            ///   - expectedSpendLow:
-            ///   - expectedSpendHigh:
             ///   - expectedSpend:
-            ///   - expectedTapsLow:
-            ///   - expectedTapsHigh:
-            ///   - expectedTaps:
-            ///   - expectedCpaLow:
-            ///   - expectedCpaHigh:
             ///   - expectedCpa:
             public init(
                 recommendationId: Swift.String? = nil,
@@ -4662,20 +4630,8 @@ public enum Components {
                 impression: Swift.Int64? = nil,
                 ttr: Swift.Double? = nil,
                 taps: Swift.Int64? = nil,
-                expectedImpressionsLow: Swift.Int64? = nil,
-                expectedImpressionsHigh: Swift.Int64? = nil,
-                expectedImpressions: Swift.Int64? = nil,
-                expectedInstallsLow: Swift.Int64? = nil,
-                expectedInstallsHigh: Swift.Int64? = nil,
                 expectedInstalls: Swift.Int64? = nil,
-                expectedSpendLow: Components.Schemas.RecommendationMoney? = nil,
-                expectedSpendHigh: Components.Schemas.RecommendationMoney? = nil,
                 expectedSpend: Components.Schemas.RecommendationMoney? = nil,
-                expectedTapsLow: Swift.Int64? = nil,
-                expectedTapsHigh: Swift.Int64? = nil,
-                expectedTaps: Swift.Int64? = nil,
-                expectedCpaLow: Components.Schemas.RecommendationMoney? = nil,
-                expectedCpaHigh: Components.Schemas.RecommendationMoney? = nil,
                 expectedCpa: Components.Schemas.RecommendationMoney? = nil
             ) {
                 self.recommendationId = recommendationId
@@ -4700,20 +4656,8 @@ public enum Components {
                 self.impression = impression
                 self.ttr = ttr
                 self.taps = taps
-                self.expectedImpressionsLow = expectedImpressionsLow
-                self.expectedImpressionsHigh = expectedImpressionsHigh
-                self.expectedImpressions = expectedImpressions
-                self.expectedInstallsLow = expectedInstallsLow
-                self.expectedInstallsHigh = expectedInstallsHigh
                 self.expectedInstalls = expectedInstalls
-                self.expectedSpendLow = expectedSpendLow
-                self.expectedSpendHigh = expectedSpendHigh
                 self.expectedSpend = expectedSpend
-                self.expectedTapsLow = expectedTapsLow
-                self.expectedTapsHigh = expectedTapsHigh
-                self.expectedTaps = expectedTaps
-                self.expectedCpaLow = expectedCpaLow
-                self.expectedCpaHigh = expectedCpaHigh
                 self.expectedCpa = expectedCpa
             }
             public enum CodingKeys: String, CodingKey {
@@ -4739,20 +4683,8 @@ public enum Components {
                 case impression
                 case ttr
                 case taps
-                case expectedImpressionsLow
-                case expectedImpressionsHigh
-                case expectedImpressions
-                case expectedInstallsLow
-                case expectedInstallsHigh
                 case expectedInstalls
-                case expectedSpendLow
-                case expectedSpendHigh
                 case expectedSpend
-                case expectedTapsLow
-                case expectedTapsHigh
-                case expectedTaps
-                case expectedCpaLow
-                case expectedCpaHigh
                 case expectedCpa
             }
         }
@@ -7678,7 +7610,7 @@ public enum Components {
             public var adAccountId: Swift.String
             /// - Remark: Generated from `#/components/schemas/LocationGroupCreate/groupType`.
             public var groupType: Components.Schemas.LocationGroupType
-            /// Structured rules for DYNAMIC groups. Use instead of raw `query`.
+            /// Structured rules for DYNAMIC groups.
             /// Supported fields: adminArea, locality, postalCode, locationId.
             /// Operators: EQUALS, NOT_EQUALS, IN, NOT_IN.
             /// Use `value` for all operators (string for EQUALS/NOT_EQUALS, array for IN/NOT_IN).
@@ -7699,7 +7631,7 @@ public enum Components {
             ///   - brandId:
             ///   - adAccountId:
             ///   - groupType:
-            ///   - rules: Structured rules for DYNAMIC groups. Use instead of raw `query`.
+            ///   - rules: Structured rules for DYNAMIC groups.
             ///   - locationIds: Location identifiers for STATIC type
             ///   - description:
             public init(
@@ -7776,11 +7708,7 @@ public enum Components {
             ///
             /// - Remark: Generated from `#/components/schemas/LocationGroup/systemStatus`.
             public var systemStatus: Components.Schemas.LocationGroup.SystemStatusPayload?
-            /// RSQL query for DYNAMIC type (read-only, generated from rules)
-            ///
-            /// - Remark: Generated from `#/components/schemas/LocationGroup/query`.
-            public var query: Swift.String?
-            /// Structured rules for DYNAMIC groups. Converted to RSQL `query` on the server.
+            /// Structured rules for DYNAMIC groups. Converted to RSQL on the server.
             /// Supported fields: adminArea, locality, postalCode, locationId.
             /// Operators: EQUALS, NOT_EQUALS (single value), IN, NOT_IN (multi-value with `value` array).
             ///
@@ -7814,8 +7742,7 @@ public enum Components {
             ///   - name:
             ///   - groupType:
             ///   - systemStatus: System-managed status. PENDING = awaiting BC evaluation (e.g., after rules change).
-            ///   - query: RSQL query for DYNAMIC type (read-only, generated from rules)
-            ///   - rules: Structured rules for DYNAMIC groups. Converted to RSQL `query` on the server.
+            ///   - rules: Structured rules for DYNAMIC groups. Converted to RSQL on the server.
             ///   - locationIds: Location identifiers for STATIC type
             ///   - isAllLocationsGroup: True for the system-created "All Locations" group (read-only)
             ///   - description:
@@ -7830,7 +7757,6 @@ public enum Components {
                 name: Swift.String,
                 groupType: Components.Schemas.LocationGroupType,
                 systemStatus: Components.Schemas.LocationGroup.SystemStatusPayload? = nil,
-                query: Swift.String? = nil,
                 rules: [Components.Schemas.Rule]? = nil,
                 locationIds: [Swift.String]? = nil,
                 isAllLocationsGroup: Swift.Bool? = nil,
@@ -7846,7 +7772,6 @@ public enum Components {
                 self.name = name
                 self.groupType = groupType
                 self.systemStatus = systemStatus
-                self.query = query
                 self.rules = rules
                 self.locationIds = locationIds
                 self.isAllLocationsGroup = isAllLocationsGroup
@@ -7863,7 +7788,6 @@ public enum Components {
                 case name
                 case groupType
                 case systemStatus
-                case query
                 case rules
                 case locationIds
                 case isAllLocationsGroup
@@ -11038,6 +10962,21 @@ public enum Components {
             }
             public static var allCases: [BudgetSystemStatusReason] { [.processing, .deletedByUser, .exhausted, .canceled, .schedulePending, .scheduleExpired, .campaignBudgetUnassigned] }
         }
+        /// - Remark: Generated from `#/components/schemas/BulkEntityDeleteIdLong`.
+        public struct BulkEntityDeleteIdLong: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/BulkEntityDeleteIdLong/id`.
+            public var id: Swift.Int64
+            /// Creates a new `BulkEntityDeleteIdLong`.
+            ///
+            /// - Parameters:
+            ///   - id:
+            public init(id: Swift.Int64) {
+                self.id = id
+            }
+            public enum CodingKeys: String, CodingKey {
+                case id
+            }
+        }
         /// Base schema for individual bulk operation results
         ///
         /// - Remark: Generated from `#/components/schemas/BulkItemResult`.
@@ -13898,6 +13837,113 @@ public enum Components {
                 try self.value2.encode(to: encoder)
             }
         }
+        /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkRequest`.
+        public struct KeywordDeleteBulkRequest: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkRequest/value1`.
+            public var value1: Components.Schemas.BulkOperationRequest
+            /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkRequest/value2`.
+            public struct Value2Payload: Codable, Hashable, Sendable {
+                /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkRequest/value2/items`.
+                public var items: [Components.Schemas.KeywordDeleteBulkRequestItem]?
+                /// Creates a new `Value2Payload`.
+                ///
+                /// - Parameters:
+                ///   - items:
+                public init(items: [Components.Schemas.KeywordDeleteBulkRequestItem]? = nil) {
+                    self.items = items
+                }
+                public enum CodingKeys: String, CodingKey {
+                    case items
+                }
+            }
+            /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkRequest/value2`.
+            public var value2: Components.Schemas.KeywordDeleteBulkRequest.Value2Payload
+            /// Creates a new `KeywordDeleteBulkRequest`.
+            ///
+            /// - Parameters:
+            ///   - value1:
+            ///   - value2:
+            public init(
+                value1: Components.Schemas.BulkOperationRequest,
+                value2: Components.Schemas.KeywordDeleteBulkRequest.Value2Payload
+            ) {
+                self.value1 = value1
+                self.value2 = value2
+            }
+            public init(from decoder: any Swift.Decoder) throws {
+                self.value1 = try .init(from: decoder)
+                self.value2 = try .init(from: decoder)
+            }
+            public func encode(to encoder: any Swift.Encoder) throws {
+                try self.value1.encode(to: encoder)
+                try self.value2.encode(to: encoder)
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkRequestItem`.
+        public struct KeywordDeleteBulkRequestItem: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkRequestItem/correlationId`.
+            public var correlationId: Swift.Int64?
+            /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkRequestItem/data`.
+            public var data: Components.Schemas.BulkEntityDeleteIdLong?
+            /// Creates a new `KeywordDeleteBulkRequestItem`.
+            ///
+            /// - Parameters:
+            ///   - correlationId:
+            ///   - data:
+            public init(
+                correlationId: Swift.Int64? = nil,
+                data: Components.Schemas.BulkEntityDeleteIdLong? = nil
+            ) {
+                self.correlationId = correlationId
+                self.data = data
+            }
+            public enum CodingKeys: String, CodingKey {
+                case correlationId
+                case data
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkResponse`.
+        public struct KeywordDeleteBulkResponse: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkResponse/value1`.
+            public var value1: Components.Schemas.BulkResponse
+            /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkResponse/value2`.
+            public struct Value2Payload: Codable, Hashable, Sendable {
+                /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkResponse/value2/result`.
+                public var result: [Components.Schemas.BulkItemResultKeyword]?
+                /// Creates a new `Value2Payload`.
+                ///
+                /// - Parameters:
+                ///   - result:
+                public init(result: [Components.Schemas.BulkItemResultKeyword]? = nil) {
+                    self.result = result
+                }
+                public enum CodingKeys: String, CodingKey {
+                    case result
+                }
+            }
+            /// - Remark: Generated from `#/components/schemas/KeywordDeleteBulkResponse/value2`.
+            public var value2: Components.Schemas.KeywordDeleteBulkResponse.Value2Payload
+            /// Creates a new `KeywordDeleteBulkResponse`.
+            ///
+            /// - Parameters:
+            ///   - value1:
+            ///   - value2:
+            public init(
+                value1: Components.Schemas.BulkResponse,
+                value2: Components.Schemas.KeywordDeleteBulkResponse.Value2Payload
+            ) {
+                self.value1 = value1
+                self.value2 = value2
+            }
+            public init(from decoder: any Swift.Decoder) throws {
+                self.value1 = try .init(from: decoder)
+                self.value2 = try .init(from: decoder)
+            }
+            public func encode(to encoder: any Swift.Encoder) throws {
+                try self.value1.encode(to: encoder)
+                try self.value2.encode(to: encoder)
+            }
+        }
         /// - Remark: Generated from `#/components/schemas/KeywordDisplayStatus`.
         public struct KeywordDisplayStatus: Codable, Hashable, Sendable, RawRepresentable, CaseIterable {
             public let rawValue: String
@@ -14517,6 +14563,113 @@ public enum Components {
             public init(
                 value1: Components.Schemas.BulkResponse,
                 value2: Components.Schemas.NegativeKeywordCreateBulkResponse.Value2Payload
+            ) {
+                self.value1 = value1
+                self.value2 = value2
+            }
+            public init(from decoder: any Swift.Decoder) throws {
+                self.value1 = try .init(from: decoder)
+                self.value2 = try .init(from: decoder)
+            }
+            public func encode(to encoder: any Swift.Encoder) throws {
+                try self.value1.encode(to: encoder)
+                try self.value2.encode(to: encoder)
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkRequest`.
+        public struct NegativeKeywordDeleteBulkRequest: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkRequest/value1`.
+            public var value1: Components.Schemas.BulkOperationRequest
+            /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkRequest/value2`.
+            public struct Value2Payload: Codable, Hashable, Sendable {
+                /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkRequest/value2/items`.
+                public var items: [Components.Schemas.NegativeKeywordDeleteBulkRequestItem]?
+                /// Creates a new `Value2Payload`.
+                ///
+                /// - Parameters:
+                ///   - items:
+                public init(items: [Components.Schemas.NegativeKeywordDeleteBulkRequestItem]? = nil) {
+                    self.items = items
+                }
+                public enum CodingKeys: String, CodingKey {
+                    case items
+                }
+            }
+            /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkRequest/value2`.
+            public var value2: Components.Schemas.NegativeKeywordDeleteBulkRequest.Value2Payload
+            /// Creates a new `NegativeKeywordDeleteBulkRequest`.
+            ///
+            /// - Parameters:
+            ///   - value1:
+            ///   - value2:
+            public init(
+                value1: Components.Schemas.BulkOperationRequest,
+                value2: Components.Schemas.NegativeKeywordDeleteBulkRequest.Value2Payload
+            ) {
+                self.value1 = value1
+                self.value2 = value2
+            }
+            public init(from decoder: any Swift.Decoder) throws {
+                self.value1 = try .init(from: decoder)
+                self.value2 = try .init(from: decoder)
+            }
+            public func encode(to encoder: any Swift.Encoder) throws {
+                try self.value1.encode(to: encoder)
+                try self.value2.encode(to: encoder)
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkRequestItem`.
+        public struct NegativeKeywordDeleteBulkRequestItem: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkRequestItem/correlationId`.
+            public var correlationId: Swift.Int64?
+            /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkRequestItem/data`.
+            public var data: Components.Schemas.BulkEntityDeleteIdLong?
+            /// Creates a new `NegativeKeywordDeleteBulkRequestItem`.
+            ///
+            /// - Parameters:
+            ///   - correlationId:
+            ///   - data:
+            public init(
+                correlationId: Swift.Int64? = nil,
+                data: Components.Schemas.BulkEntityDeleteIdLong? = nil
+            ) {
+                self.correlationId = correlationId
+                self.data = data
+            }
+            public enum CodingKeys: String, CodingKey {
+                case correlationId
+                case data
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkResponse`.
+        public struct NegativeKeywordDeleteBulkResponse: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkResponse/value1`.
+            public var value1: Components.Schemas.BulkResponse
+            /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkResponse/value2`.
+            public struct Value2Payload: Codable, Hashable, Sendable {
+                /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkResponse/value2/result`.
+                public var result: [Components.Schemas.BulkItemResultNegativeKeyword]?
+                /// Creates a new `Value2Payload`.
+                ///
+                /// - Parameters:
+                ///   - result:
+                public init(result: [Components.Schemas.BulkItemResultNegativeKeyword]? = nil) {
+                    self.result = result
+                }
+                public enum CodingKeys: String, CodingKey {
+                    case result
+                }
+            }
+            /// - Remark: Generated from `#/components/schemas/NegativeKeywordDeleteBulkResponse/value2`.
+            public var value2: Components.Schemas.NegativeKeywordDeleteBulkResponse.Value2Payload
+            /// Creates a new `NegativeKeywordDeleteBulkResponse`.
+            ///
+            /// - Parameters:
+            ///   - value1:
+            ///   - value2:
+            public init(
+                value1: Components.Schemas.BulkResponse,
+                value2: Components.Schemas.NegativeKeywordDeleteBulkResponse.Value2Payload
             ) {
                 self.value1 = value1
                 self.value2 = value2
@@ -15552,7 +15705,7 @@ public enum Components {
             }
             public static var allCases: [ReportingPricingModel] { [.cpa, .cpm, .cpt] }
         }
-        /// Request body for APPS promoted object type. Supported groupBy values: deviceClass, ageRange, gender, countryCode, adminArea, locality, storefront, countryOrRegion. Entity-specific groupBy restrictions apply server-side (e.g. KEYWORD and SEARCHTERM exclude ageRange, gender, countryCode, adminArea, locality).
+        /// Request body for APPS promoted object type. Supported groupBy values: deviceClass, ageRange, gender, countryCode, adminArea, locality, countryOrRegion. Entity-specific groupBy restrictions apply server-side (e.g. KEYWORD and SEARCHTERM exclude ageRange, gender, countryCode, adminArea, locality).
         ///
         ///
         /// - Remark: Generated from `#/components/schemas/AppsReportingRequest`.
@@ -15575,7 +15728,6 @@ public enum Components {
                 public static let countryCode = GroupByPayloadPayload(rawValue: "countryCode")
                 public static let adminArea = GroupByPayloadPayload(rawValue: "adminArea")
                 public static let locality = GroupByPayloadPayload(rawValue: "locality")
-                public static let storefront = GroupByPayloadPayload(rawValue: "storefront")
                 public static let countryOrRegion = GroupByPayloadPayload(rawValue: "countryOrRegion")
                 public init(from decoder: any Decoder) throws {
                     self.rawValue = try decoder.singleValueContainer().decode(String.self)
@@ -15584,7 +15736,7 @@ public enum Components {
                     var container = encoder.singleValueContainer()
                     try container.encode(rawValue)
                 }
-                public static var allCases: [GroupByPayloadPayload] { [.deviceClass, .ageRange, .gender, .countryCode, .adminArea, .locality, .storefront, .countryOrRegion] }
+                public static var allCases: [GroupByPayloadPayload] { [.deviceClass, .ageRange, .gender, .countryCode, .adminArea, .locality, .countryOrRegion] }
             }
             /// Supported values for APPS. Note: KEYWORD and SEARCHTERM entities exclude ageRange, gender, countryCode, adminArea, locality. AD entity additionally excludes deviceClass. HOURLY granularity excludes ageRange, gender, countryCode, adminArea, locality.
             ///
@@ -16105,7 +16257,7 @@ public enum Components {
         ///
         /// - Remark: Generated from `#/components/schemas/AppsMetrics`.
         public struct AppsMetrics: Codable, Hashable, Sendable {
-            /// Report date in YYYY-MM-DD format.
+            /// Report date. YYYY-MM-DD for DAILY, WEEKLY and MONTHLY granularity; YYYY-MM-DD HH for HOURLY granularity.
             ///
             /// - Remark: Generated from `#/components/schemas/AppsMetrics/date`.
             public var date: Swift.String?
@@ -16186,7 +16338,7 @@ public enum Components {
             /// Creates a new `AppsMetrics`.
             ///
             /// - Parameters:
-            ///   - date: Report date in YYYY-MM-DD format.
+            ///   - date: Report date. YYYY-MM-DD for DAILY, WEEKLY and MONTHLY granularity; YYYY-MM-DD HH for HOURLY granularity.
             ///   - localSpend:
             ///   - impressions:
             ///   - taps:
@@ -16337,7 +16489,7 @@ public enum Components {
         ///
         /// - Remark: Generated from `#/components/schemas/BrandsMetrics`.
         public struct BrandsMetrics: Codable, Hashable, Sendable {
-            /// Report date in YYYY-MM-DD format.
+            /// Report date. YYYY-MM-DD for DAILY, WEEKLY and MONTHLY granularity; YYYY-MM-DD HH for HOURLY granularity.
             ///
             /// - Remark: Generated from `#/components/schemas/BrandsMetrics/date`.
             public var date: Swift.String?
@@ -16386,7 +16538,7 @@ public enum Components {
             /// Creates a new `BrandsMetrics`.
             ///
             /// - Parameters:
-            ///   - date: Report date in YYYY-MM-DD format.
+            ///   - date: Report date. YYYY-MM-DD for DAILY, WEEKLY and MONTHLY granularity; YYYY-MM-DD HH for HOURLY granularity.
             ///   - localSpend:
             ///   - impressions:
             ///   - taps:
@@ -19173,7 +19325,7 @@ public enum Components {
             public struct StatusPayload: Codable, Hashable, Sendable, RawRepresentable, CaseIterable {
                 public let rawValue: String
                 public init(rawValue: String) { self.rawValue = rawValue }
-                public static let active = StatusPayload(rawValue: "ACTIVE")
+                public static let enabled = StatusPayload(rawValue: "ENABLED")
                 public static let paused = StatusPayload(rawValue: "PAUSED")
                 public static let deleted = StatusPayload(rawValue: "DELETED")
                 public init(from decoder: any Decoder) throws {
@@ -19183,7 +19335,7 @@ public enum Components {
                     var container = encoder.singleValueContainer()
                     try container.encode(rawValue)
                 }
-                public static var allCases: [StatusPayload] { [.active, .paused, .deleted] }
+                public static var allCases: [StatusPayload] { [.enabled, .paused, .deleted] }
             }
             /// - Remark: Generated from `#/components/schemas/ReportingKeyword/status`.
             public var status: Components.Schemas.ReportingKeyword.StatusPayload?
@@ -48492,6 +48644,440 @@ public enum Operations {
             }
         }
     }
+    /// BulkDelete for keywords
+    ///
+    /// - Remark: HTTP `POST /keywords/bulk-delete`.
+    /// - Remark: Generated from `#/paths//keywords/bulk-delete/post`.
+    public enum PostKeywordsBulkDelete {
+        public static let id: Swift.String = "post/keywords/bulk-delete"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/header`.
+            public struct Headers: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/header/X-Ap-Context`.
+                public var xApContext: Components.Parameters.XApContext
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.PostKeywordsBulkDelete.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - xApContext:
+                ///   - accept:
+                public init(
+                    xApContext: Components.Parameters.XApContext,
+                    accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.PostKeywordsBulkDelete.AcceptableContentType>] = .defaultValues()
+                ) {
+                    self.xApContext = xApContext
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.PostKeywordsBulkDelete.Input.Headers
+            /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/requestBody`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/requestBody/content/application\/json`.
+                case json(Components.Schemas.KeywordDeleteBulkRequest)
+            }
+            public var body: Operations.PostKeywordsBulkDelete.Input.Body?
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - headers:
+            ///   - body:
+            public init(
+                headers: Operations.PostKeywordsBulkDelete.Input.Headers,
+                body: Operations.PostKeywordsBulkDelete.Input.Body? = nil
+            ) {
+                self.headers = headers
+                self.body = body
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/200/content/application\/json`.
+                    case json(Components.Schemas.KeywordDeleteBulkResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.KeywordDeleteBulkResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostKeywordsBulkDelete.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostKeywordsBulkDelete.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// Successful operation
+            ///
+            /// - Remark: Generated from `#/paths//keywords/bulk-delete/post/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.PostKeywordsBulkDelete.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.PostKeywordsBulkDelete.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            public struct BadRequest: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/400/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/400/content/application\/json`.
+                    case json(Components.Schemas.ErrorResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.ErrorResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostKeywordsBulkDelete.Output.BadRequest.Body
+                /// Creates a new `BadRequest`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostKeywordsBulkDelete.Output.BadRequest.Body) {
+                    self.body = body
+                }
+            }
+            /// Bad Request
+            ///
+            /// - Remark: Generated from `#/paths//keywords/bulk-delete/post/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Operations.PostKeywordsBulkDelete.Output.BadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Operations.PostKeywordsBulkDelete.Output.BadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            public struct Unauthorized: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/401/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/401/content/application\/json`.
+                    case json(Components.Schemas.ErrorResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.ErrorResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostKeywordsBulkDelete.Output.Unauthorized.Body
+                /// Creates a new `Unauthorized`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostKeywordsBulkDelete.Output.Unauthorized.Body) {
+                    self.body = body
+                }
+            }
+            /// Authorization Error
+            ///
+            /// - Remark: Generated from `#/paths//keywords/bulk-delete/post/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Operations.PostKeywordsBulkDelete.Output.Unauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Operations.PostKeywordsBulkDelete.Output.Unauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            public struct Forbidden: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/403/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/403/content/application\/json`.
+                    case json(Components.Schemas.ErrorResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.ErrorResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostKeywordsBulkDelete.Output.Forbidden.Body
+                /// Creates a new `Forbidden`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostKeywordsBulkDelete.Output.Forbidden.Body) {
+                    self.body = body
+                }
+            }
+            /// Access Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//keywords/bulk-delete/post/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Operations.PostKeywordsBulkDelete.Output.Forbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Operations.PostKeywordsBulkDelete.Output.Forbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            public struct NotFound: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/404/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/404/content/application\/json`.
+                    case json(Components.Schemas.ErrorResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.ErrorResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostKeywordsBulkDelete.Output.NotFound.Body
+                /// Creates a new `NotFound`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostKeywordsBulkDelete.Output.NotFound.Body) {
+                    self.body = body
+                }
+            }
+            /// Resource not found
+            ///
+            /// - Remark: Generated from `#/paths//keywords/bulk-delete/post/responses/404`.
+            ///
+            /// HTTP response code: `404 notFound`.
+            case notFound(Operations.PostKeywordsBulkDelete.Output.NotFound)
+            /// The associated value of the enum case if `self` is `.notFound`.
+            ///
+            /// - Throws: An error if `self` is not `.notFound`.
+            /// - SeeAlso: `.notFound`.
+            public var notFound: Operations.PostKeywordsBulkDelete.Output.NotFound {
+                get throws {
+                    switch self {
+                    case let .notFound(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "notFound",
+                            response: self
+                        )
+                    }
+                }
+            }
+            public struct TooManyRequests: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/429/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/429/content/application\/json`.
+                    case json(Components.Schemas.ErrorResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.ErrorResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostKeywordsBulkDelete.Output.TooManyRequests.Body
+                /// Creates a new `TooManyRequests`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostKeywordsBulkDelete.Output.TooManyRequests.Body) {
+                    self.body = body
+                }
+            }
+            /// Rate Limit Exceeded
+            ///
+            /// - Remark: Generated from `#/paths//keywords/bulk-delete/post/responses/429`.
+            ///
+            /// HTTP response code: `429 tooManyRequests`.
+            case tooManyRequests(Operations.PostKeywordsBulkDelete.Output.TooManyRequests)
+            /// The associated value of the enum case if `self` is `.tooManyRequests`.
+            ///
+            /// - Throws: An error if `self` is not `.tooManyRequests`.
+            /// - SeeAlso: `.tooManyRequests`.
+            public var tooManyRequests: Operations.PostKeywordsBulkDelete.Output.TooManyRequests {
+                get throws {
+                    switch self {
+                    case let .tooManyRequests(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "tooManyRequests",
+                            response: self
+                        )
+                    }
+                }
+            }
+            public struct InternalServerError: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/500/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/keywords/bulk-delete/POST/responses/500/content/application\/json`.
+                    case json(Components.Schemas.ErrorResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.ErrorResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostKeywordsBulkDelete.Output.InternalServerError.Body
+                /// Creates a new `InternalServerError`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostKeywordsBulkDelete.Output.InternalServerError.Body) {
+                    self.body = body
+                }
+            }
+            /// Internal Server Error
+            ///
+            /// - Remark: Generated from `#/paths//keywords/bulk-delete/post/responses/500`.
+            ///
+            /// HTTP response code: `500 internalServerError`.
+            case internalServerError(Operations.PostKeywordsBulkDelete.Output.InternalServerError)
+            /// The associated value of the enum case if `self` is `.internalServerError`.
+            ///
+            /// - Throws: An error if `self` is not `.internalServerError`.
+            /// - SeeAlso: `.internalServerError`.
+            public var internalServerError: Operations.PostKeywordsBulkDelete.Output.InternalServerError {
+                get throws {
+                    switch self {
+                    case let .internalServerError(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "internalServerError",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
     /// BulkUpdate for keywords
     ///
     /// - Remark: HTTP `POST /keywords/bulk-update`.
@@ -51517,6 +52103,440 @@ public enum Operations {
             /// - Throws: An error if `self` is not `.internalServerError`.
             /// - SeeAlso: `.internalServerError`.
             public var internalServerError: Operations.PostNegativeKeywordsBulkCreate.Output.InternalServerError {
+                get throws {
+                    switch self {
+                    case let .internalServerError(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "internalServerError",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// BulkDelete for negative-keywords
+    ///
+    /// - Remark: HTTP `POST /negative-keywords/bulk-delete`.
+    /// - Remark: Generated from `#/paths//negative-keywords/bulk-delete/post`.
+    public enum PostNegativeKeywordsBulkDelete {
+        public static let id: Swift.String = "post/negative-keywords/bulk-delete"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/header`.
+            public struct Headers: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/header/X-Ap-Context`.
+                public var xApContext: Components.Parameters.XApContext
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.PostNegativeKeywordsBulkDelete.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - xApContext:
+                ///   - accept:
+                public init(
+                    xApContext: Components.Parameters.XApContext,
+                    accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.PostNegativeKeywordsBulkDelete.AcceptableContentType>] = .defaultValues()
+                ) {
+                    self.xApContext = xApContext
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.PostNegativeKeywordsBulkDelete.Input.Headers
+            /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/requestBody`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/requestBody/content/application\/json`.
+                case json(Components.Schemas.NegativeKeywordDeleteBulkRequest)
+            }
+            public var body: Operations.PostNegativeKeywordsBulkDelete.Input.Body?
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - headers:
+            ///   - body:
+            public init(
+                headers: Operations.PostNegativeKeywordsBulkDelete.Input.Headers,
+                body: Operations.PostNegativeKeywordsBulkDelete.Input.Body? = nil
+            ) {
+                self.headers = headers
+                self.body = body
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            public struct Ok: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/200/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/200/content/application\/json`.
+                    case json(Components.Schemas.NegativeKeywordDeleteBulkResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.NegativeKeywordDeleteBulkResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostNegativeKeywordsBulkDelete.Output.Ok.Body
+                /// Creates a new `Ok`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostNegativeKeywordsBulkDelete.Output.Ok.Body) {
+                    self.body = body
+                }
+            }
+            /// Successful operation
+            ///
+            /// - Remark: Generated from `#/paths//negative-keywords/bulk-delete/post/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Operations.PostNegativeKeywordsBulkDelete.Output.Ok)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Operations.PostNegativeKeywordsBulkDelete.Output.Ok {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            public struct BadRequest: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/400/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/400/content/application\/json`.
+                    case json(Components.Schemas.ErrorResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.ErrorResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostNegativeKeywordsBulkDelete.Output.BadRequest.Body
+                /// Creates a new `BadRequest`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostNegativeKeywordsBulkDelete.Output.BadRequest.Body) {
+                    self.body = body
+                }
+            }
+            /// Bad Request
+            ///
+            /// - Remark: Generated from `#/paths//negative-keywords/bulk-delete/post/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Operations.PostNegativeKeywordsBulkDelete.Output.BadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Operations.PostNegativeKeywordsBulkDelete.Output.BadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            public struct Unauthorized: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/401/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/401/content/application\/json`.
+                    case json(Components.Schemas.ErrorResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.ErrorResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostNegativeKeywordsBulkDelete.Output.Unauthorized.Body
+                /// Creates a new `Unauthorized`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostNegativeKeywordsBulkDelete.Output.Unauthorized.Body) {
+                    self.body = body
+                }
+            }
+            /// Authorization Error
+            ///
+            /// - Remark: Generated from `#/paths//negative-keywords/bulk-delete/post/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Operations.PostNegativeKeywordsBulkDelete.Output.Unauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Operations.PostNegativeKeywordsBulkDelete.Output.Unauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            public struct Forbidden: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/403/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/403/content/application\/json`.
+                    case json(Components.Schemas.ErrorResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.ErrorResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostNegativeKeywordsBulkDelete.Output.Forbidden.Body
+                /// Creates a new `Forbidden`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostNegativeKeywordsBulkDelete.Output.Forbidden.Body) {
+                    self.body = body
+                }
+            }
+            /// Access Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//negative-keywords/bulk-delete/post/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Operations.PostNegativeKeywordsBulkDelete.Output.Forbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Operations.PostNegativeKeywordsBulkDelete.Output.Forbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            public struct NotFound: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/404/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/404/content/application\/json`.
+                    case json(Components.Schemas.ErrorResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.ErrorResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostNegativeKeywordsBulkDelete.Output.NotFound.Body
+                /// Creates a new `NotFound`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostNegativeKeywordsBulkDelete.Output.NotFound.Body) {
+                    self.body = body
+                }
+            }
+            /// Resource not found
+            ///
+            /// - Remark: Generated from `#/paths//negative-keywords/bulk-delete/post/responses/404`.
+            ///
+            /// HTTP response code: `404 notFound`.
+            case notFound(Operations.PostNegativeKeywordsBulkDelete.Output.NotFound)
+            /// The associated value of the enum case if `self` is `.notFound`.
+            ///
+            /// - Throws: An error if `self` is not `.notFound`.
+            /// - SeeAlso: `.notFound`.
+            public var notFound: Operations.PostNegativeKeywordsBulkDelete.Output.NotFound {
+                get throws {
+                    switch self {
+                    case let .notFound(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "notFound",
+                            response: self
+                        )
+                    }
+                }
+            }
+            public struct TooManyRequests: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/429/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/429/content/application\/json`.
+                    case json(Components.Schemas.ErrorResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.ErrorResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostNegativeKeywordsBulkDelete.Output.TooManyRequests.Body
+                /// Creates a new `TooManyRequests`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostNegativeKeywordsBulkDelete.Output.TooManyRequests.Body) {
+                    self.body = body
+                }
+            }
+            /// Rate Limit Exceeded
+            ///
+            /// - Remark: Generated from `#/paths//negative-keywords/bulk-delete/post/responses/429`.
+            ///
+            /// HTTP response code: `429 tooManyRequests`.
+            case tooManyRequests(Operations.PostNegativeKeywordsBulkDelete.Output.TooManyRequests)
+            /// The associated value of the enum case if `self` is `.tooManyRequests`.
+            ///
+            /// - Throws: An error if `self` is not `.tooManyRequests`.
+            /// - SeeAlso: `.tooManyRequests`.
+            public var tooManyRequests: Operations.PostNegativeKeywordsBulkDelete.Output.TooManyRequests {
+                get throws {
+                    switch self {
+                    case let .tooManyRequests(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "tooManyRequests",
+                            response: self
+                        )
+                    }
+                }
+            }
+            public struct InternalServerError: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/500/content`.
+                @frozen public enum Body: Sendable, Hashable {
+                    /// - Remark: Generated from `#/paths/negative-keywords/bulk-delete/POST/responses/500/content/application\/json`.
+                    case json(Components.Schemas.ErrorResponse)
+                    /// The associated value of the enum case if `self` is `.json`.
+                    ///
+                    /// - Throws: An error if `self` is not `.json`.
+                    /// - SeeAlso: `.json`.
+                    public var json: Components.Schemas.ErrorResponse {
+                        get throws {
+                            switch self {
+                            case let .json(body):
+                                return body
+                            }
+                        }
+                    }
+                }
+                /// Received HTTP response body
+                public var body: Operations.PostNegativeKeywordsBulkDelete.Output.InternalServerError.Body
+                /// Creates a new `InternalServerError`.
+                ///
+                /// - Parameters:
+                ///   - body: Received HTTP response body
+                public init(body: Operations.PostNegativeKeywordsBulkDelete.Output.InternalServerError.Body) {
+                    self.body = body
+                }
+            }
+            /// Internal Server Error
+            ///
+            /// - Remark: Generated from `#/paths//negative-keywords/bulk-delete/post/responses/500`.
+            ///
+            /// HTTP response code: `500 internalServerError`.
+            case internalServerError(Operations.PostNegativeKeywordsBulkDelete.Output.InternalServerError)
+            /// The associated value of the enum case if `self` is `.internalServerError`.
+            ///
+            /// - Throws: An error if `self` is not `.internalServerError`.
+            /// - SeeAlso: `.internalServerError`.
+            public var internalServerError: Operations.PostNegativeKeywordsBulkDelete.Output.InternalServerError {
                 get throws {
                     switch self {
                     case let .internalServerError(response):
@@ -56376,7 +57396,7 @@ public enum Operations {
     /// Get app campaign reports
     ///
     /// Retrieve reporting data for campaigns.
-    /// **groupBy (APPS):** deviceClass, ageRange, gender, countryCode, adminArea, locality, storefront, countryOrRegion
+    /// **groupBy (APPS):** deviceClass, ageRange, gender, countryCode, adminArea, locality, countryOrRegion
     /// **HOURLY granularity** requires the date range to start within the last 7 days. **WEEKLY granularity** requires the end date to be at least 14 days in the past. **MONTHLY granularity** requires the end date to be at least 90 days in the past.
     ///
     ///
@@ -57255,7 +58275,7 @@ public enum Operations {
     /// Get app ad group reports
     ///
     /// Retrieve reporting data for ad groups.
-    /// **groupBy (APPS):** deviceClass, ageRange, gender, countryCode, adminArea, locality, storefront, countryOrRegion
+    /// **groupBy (APPS):** deviceClass, ageRange, gender, countryCode, adminArea, locality, countryOrRegion
     /// **HOURLY granularity** requires the date range to start within the last 7 days. **WEEKLY granularity** requires the end date to be at least 14 days in the past. **MONTHLY granularity** requires the end date to be at least 90 days in the past.
     ///
     ///

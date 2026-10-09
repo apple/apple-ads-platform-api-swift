@@ -26,6 +26,8 @@ Add the library product to your target:
 .product(name: "AppleAdsClient", package: "apple-ads-platform-api-swift")
 ```
 
+This library requires Swift 6.2 or newer.
+
 ## Getting Started
 
 This library provides a client for the Apple Ads Platform API. Built on

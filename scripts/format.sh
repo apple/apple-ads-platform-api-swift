@@ -16,5 +16,5 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 find "$REPO_ROOT/Sources/AppleAdsClient" "$REPO_ROOT/Tests/AppleAdsClientTests" \
     "$REPO_ROOT/Tools/Postprocessor/Sources" "$REPO_ROOT/Tools/Postprocessor/Tests" \
-    -name "*.swift" -not -path "*/Generated/*" \
-    | xargs swift-format format -i --configuration "$REPO_ROOT/.swift-format"
+    -name "*.swift" -not -path "*/Generated/*" -print0 \
+    | xargs -0 swift-format format -i --configuration "$REPO_ROOT/.swift-format"

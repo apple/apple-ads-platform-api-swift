@@ -46,6 +46,13 @@ cp -R "$WORK_DIR"/. "$GENERATED_DIR"
 echo "Post-processing generated code..."
 swift run --package-path "$ROOT_DIR/Tools/Postprocessor" postprocessor "$GENERATED_DIR/Types.swift" --in-place
 
+# Prepend the license header (the generator can't place it on the first line)
+LICENSE_HEADER="// Copyright (c) $(date +%Y) Apple Inc. Licensed under MIT License."
+for file in "$GENERATED_DIR"/*.swift; do
+  { printf '%s\n\n' "$LICENSE_HEADER"; cat "$file"; } > "$file.tmp"
+  mv "$file.tmp" "$file"
+done
+
 echo "Generated code in Sources/AppleAdsClient/Generated/"
 ls -la "$GENERATED_DIR"
 

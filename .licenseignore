@@ -9,7 +9,6 @@
 **.txt
 **Package.swift
 **Package.resolved
-Sources/AppleAdsClient/Generated/
 scripts/
 spec.version
 patch.version

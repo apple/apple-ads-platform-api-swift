@@ -12,7 +12,19 @@ jobs:
     name: Soundness
     uses: swiftlang/github-workflows/.github/workflows/soundness.yml@0.0.11
     with:
-      license_header_check_project_name: "AppleAdsClient"
+      # we use a custom script instead of the github provided one
+      license_header_check_enabled: false
+
+  license-headers:
+    name: License headers
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check license headers
+        run: ./scripts/check-license-headers.sh
 
   unit-tests:
     name: Unit tests

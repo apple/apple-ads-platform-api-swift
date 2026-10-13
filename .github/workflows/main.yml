@@ -28,7 +28,7 @@ jobs:
     uses: apple/swift-nio/.github/workflows/macos_tests.yml@main
     with:
       runner_pool: nightly
-      build_scheme: apple-ads-platform-api-swift-Package
+      build_scheme: apple-ads-platform-api-swift
       swift_6_1_enabled: false
       swift_6_2_enabled: true
 

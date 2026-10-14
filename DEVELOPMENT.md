@@ -17,6 +17,24 @@ You can verify formatting without modifying files:
 
 Generated code (`Sources/AppleAdsClient/Generated/`) is excluded from formatting checks.
 
+## License Headers
+
+Hand-written Swift files must begin with this header (the year may vary):
+
+```swift
+// Copyright (c) 2026 Apple Inc. Licensed under MIT License.
+```
+
+Verify headers with:
+
+```bash
+./scripts/check-license-headers.sh
+```
+
+Paths listed in `.licenseignore` (such as `Package.swift` and `scripts/`) are skipped.
+
+Generated code gets its header automatically from `scripts/refresh_generated_sources.sh`.
+
 ## Running Tests
 
 ```bash

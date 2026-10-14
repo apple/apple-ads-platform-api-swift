@@ -12,7 +12,20 @@ jobs:
     name: Soundness
     uses: swiftlang/github-workflows/.github/workflows/soundness.yml@0.0.11
     with:
-      license_header_check_project_name: "AppleAdsClient"
+      # we use a custom script instead of the github provided one
+      license_header_check_enabled: false
+      api_breakage_check_enabled: false
+
+  license-headers:
+    name: License headers
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check license headers
+        run: ./scripts/check-license-headers.sh
 
   unit-tests:
     name: Unit tests
@@ -32,9 +45,15 @@ jobs:
     uses: apple/swift-nio/.github/workflows/macos_tests.yml@main
     with:
       runner_pool: general
-      build_scheme: apple-ads-platform-api-swift-Package
+      build_scheme: apple-ads-platform-api-swift
       swift_6_1_enabled: false
       swift_6_2_enabled: true
+      # server-side client: swift build/test covers macOS; other Apple platforms are not supported
+      macos_xcode_build_enabled: false
+      ios_xcode_build_enabled: false
+      watchos_xcode_build_enabled: false
+      tvos_xcode_build_enabled: false
+      visionos_xcode_build_enabled: false
 
   release-builds:
     name: Release builds

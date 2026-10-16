@@ -42,14 +42,11 @@ struct JWTSigner: Sendable {
     /// - Returns: A compact JWT string.
     /// - Throws: ``AppleAdsAuthError`` if signing fails.
     internal func sign(claims: Claims) throws -> String {
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .secondsSince1970
-
         let headerData: Data
         let claimsData: Data
         do {
-            headerData = try encoder.encode(Header(alg: "ES256", kid: self.keyID))
-            claimsData = try encoder.encode(claims)
+            headerData = try Self.encoder.encode(Header(alg: "ES256", kid: self.keyID))
+            claimsData = try Self.encoder.encode(claims)
         } catch {
             throw AppleAdsAuthError.jwtSigningFailed(
                 "Failed to encode JWT header or claims",
@@ -98,6 +95,18 @@ struct JWTSigner: Sendable {
 
     // MARK: - Private
 
+    /// Shared encoder for JWT header and claims serialisation.
+    ///
+    /// `JSONEncoder` is safe to call concurrently: `encode()` writes to a fresh
+    /// buffer each call while reading immutable configuration set here once.
+    /// Hoisting it avoids repeated allocation and configuration on every `sign()` call.
+    // FIX(perf): Allocate once as static instead of per sign() call.
+    private static let encoder: JSONEncoder = {
+        let e = JSONEncoder()
+        e.dateEncodingStrategy = .secondsSince1970
+        return e
+    }()
+
     /// Encodes data as a base64url string (no padding), per RFC 4648 section 5.
     private static func base64URLEncode(_ data: Data) -> String {
         data.base64EncodedString()
@@ -137,8 +146,15 @@ extension JWTSigner {
     ///
     /// Includes `typ: "JWT"` per RFC 7519 section 5.1 (RECOMMENDED).
     struct Header: Encodable {
-        var alg: String
-        var typ: String = "JWT"
-        var kid: String
+        // FIX(quality): Fields are set once at construction; let enforces immutability.
+        let alg: String
+        let typ: String
+        let kid: String
+
+        init(alg: String, kid: String, typ: String = "JWT") {
+            self.alg = alg
+            self.kid = kid
+            self.typ = typ
+        }
     }
 }

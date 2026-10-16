@@ -4,7 +4,7 @@ import HTTPTypes
 import OpenAPIRuntime
 import Foundation
 
-/// Middleware that injects Bearer tokens and retries once on 401.
+/// Middleware that injects Bearer tokens and retries on 401 up to ``AuthConstants/maxRequestAttempts`` times.
 ///
 /// On retry, the same `body` is passed to `next`. This is safe because
 /// the generated client produces buffer-backed bodies that support
@@ -23,7 +23,8 @@ internal struct AuthMiddleware: ClientMiddleware, Sendable {
         self.scheme = scheme
     }
 
-    /// Intercepts the request to inject a bearer token, retrying once on 401.
+    /// Intercepts the request to inject a bearer token, retrying up to
+    /// `AuthConstants.maxRequestAttempts - 1` times on 401 responses.
     public func intercept(
         _ request: HTTPRequest,
         body: HTTPBody?,
@@ -31,35 +32,39 @@ internal struct AuthMiddleware: ClientMiddleware, Sendable {
         operationID: String,
         next: @concurrent @Sendable (HTTPRequest, HTTPBody?, URL) async throws -> (HTTPResponse, HTTPBody?)
     ) async throws -> (HTTPResponse, HTTPBody?) {
+        var lastToken = try await self.tokenProvider.token()
         var authedRequest = request
-        let currentToken = try await self.tokenProvider.token()
-        authedRequest.headerFields[.authorization] = "\(self.scheme) \(currentToken)"
+        authedRequest.headerFields[.authorization] = "\(self.scheme) \(lastToken)"
 
-        let (response, responseBody) = try await next(authedRequest, body, baseURL)
+        var (response, responseBody) = try await next(authedRequest, body, baseURL)
 
-        guard response.status == .unauthorized else {
-            return (response, responseBody)
+        // FIX(bug): The original guard `maxRequestAttempts > 1` was always true for the
+        // constant value of 2, making the constant meaningless. This loop correctly uses
+        // maxRequestAttempts to control retry count: attempt 1 is the initial call above,
+        // so we retry at most (maxRequestAttempts - 1) more times.
+        var attempt = 1
+        while response.status == .unauthorized, attempt < AuthConstants.maxRequestAttempts {
+            attempt += 1
+
+            // On failed refresh, return the most recent 401 response to the caller.
+            let freshToken: String
+            do {
+                freshToken = try await self.tokenProvider.token()
+            } catch {
+                return (response, responseBody)
+            }
+
+            // If the token hasn't changed, further retries are pointless.
+            guard freshToken != lastToken else {
+                return (response, responseBody)
+            }
+            lastToken = freshToken
+
+            var retryRequest = request
+            retryRequest.headerFields[.authorization] = "\(self.scheme) \(freshToken)"
+            (response, responseBody) = try await next(retryRequest, body, baseURL)
         }
 
-        guard AuthConstants.maxRequestAttempts > 1 else {
-            return (response, responseBody)
-        }
-
-        // On failed refresh, return original 401 response to caller.
-        let freshToken: String
-        do {
-            freshToken = try await self.tokenProvider.token()
-        } catch {
-            return (response, responseBody)
-        }
-
-        guard freshToken != currentToken else {
-            return (response, responseBody)
-        }
-
-        var retryRequest = request
-        retryRequest.headerFields[.authorization] = "\(self.scheme) \(freshToken)"
-
-        return try await next(retryRequest, body, baseURL)
+        return (response, responseBody)
     }
 }

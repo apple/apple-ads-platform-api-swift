@@ -33,8 +33,10 @@ internal actor CachingTokenProvider: TokenProvider {
         self.fetchToken = fetchToken
         self.onProactiveRefreshFailure = onProactiveRefreshFailure
         // Eager initial fetch
-        self.cachedToken = try await fetchToken()
-        self.scheduleProactiveRefresh(for: self.cachedToken!)
+        // FIX(bug): Use local constant to avoid force-unwrap on the optional property.
+        let initialToken = try await fetchToken()
+        self.cachedToken = initialToken
+        self.scheduleProactiveRefresh(for: initialToken)
     }
 
     // MARK: - TokenProvider conformance
